@@ -13,7 +13,7 @@
 	}
 %>
 <body>
-This is public component
+
 <%
 	
 // url parameter 의 route 변수의 값에 따라서 보여지는 파일이 달라짐. 
@@ -32,7 +32,6 @@ else {
 	<jsp:include page="../routes/signIn.jsp" flush="false" />
 	<%
 }
-	
-%>
+	%>
 </body>
 </html>
