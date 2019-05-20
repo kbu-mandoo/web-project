@@ -25,6 +25,10 @@ This is private component
 		%>
 		<jsp:include page="../routes/colorizeImages.jsp" flush="false" />
 		<%
+	}else if (route.equals("perspectiveTransform2")){
+		%>
+		<jsp:include page="../routes/perspectiveTransform2.jsp" flush="false" />
+		<%
 	}else {
 		%>
 		<jsp:include page="../routes/perspectiveTransform.jsp" flush="false" />
