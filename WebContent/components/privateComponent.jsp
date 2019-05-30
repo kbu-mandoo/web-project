@@ -29,7 +29,11 @@ This is private component
 		%>
 		<jsp:include page="../routes/perspectiveTransform2.jsp" flush="false" />
 		<%
-	}else {
+	}else if(route.equals("document")){
+		%>
+		<jsp:include page="../routes/document.jsp" flush="false" />
+		<%
+	} else {
 		%>
 		<jsp:include page="../routes/perspectiveTransform.jsp" flush="false" />
 		<%

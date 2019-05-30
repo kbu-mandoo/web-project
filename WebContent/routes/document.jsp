@@ -1,16 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.io.*"  %>
-<%@ page import="java.net.*"  %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<title>Insert title here</title>
-<style>
+    <!-- for hot module reloading -->
+    <script src="./index.js"></script>
+    <title>Document</title>
+    <style>
         html,
         body,
         div,
@@ -100,8 +100,9 @@
             vertical-align: baseline;
             background-color: #2c3e50;
             color: white;
+            font-size: 14px;
         }
-        .perspectiveTransform2 {
+        .document {
             min-width: 100vw;
             min-height: 100vh;
             display: flex;
@@ -149,80 +150,64 @@
             align-items: flex-end;
             cursor: pointer;
         }
-        /* to here, navigation bar css */
-        .perspectiveTransform2__body {
+        .document__body {
+            display: flex;
             width: 100%;
             height: 100%;
-            display: flex;
-        }
-        .perspectiveTransform2__body_left {
-            width: 50%;
-            display: flex;
-            justify-content: center;
             margin-top: 100px;
         }
-        .perspectiveTransform2__body_left>img {
-            -webkit-box-shadow: 10px 10px 23px -13px rgba(0, 0, 0, 0.75);
-            -moz-box-shadow: 10px 10px 23px -13px rgba(0, 0, 0, 0.75);
-            box-shadow: 10px 10px 23px -13px rgba(0, 0, 0, 0.75);
+        .document__body__left {
+            width: 400px;
+            padding-left: 30px;
         }
-        .perspectiveTransform2__button {
+        .document__body__right {
+            width: 100%;
+            padding: 20px;
+        }
+        .document__body__left__navigation_box {
+            width: 100%;
+        }
+        .document__body__left__navigation_box__item {
+            margin-bottom: 20px;
+            transition: 0.2s ease-in-out;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .document__body__left__navigation_box__item:hover {
+            font-size: 16px;
+        }
+        .document__body__left__navigation_box__item:active {
+            font-weight: 900;
+        }
+        .document__body__right__title_text {
+            font-size: 40px;
+            font-weight: 900;
+            margin-bottom: 50px;
+            cursor: pointer;
+        }
+        .document__body__right__normal_text {
+            letter-spacing: 1.3px;
+            line-height: 25px;
+        }
+        .division_line_container {
             width: 100%;
             display: flex;
             justify-content: center;
-            margin-top: 140px;
-            margin-bottom: 110px;
+            margin-top: 80px;
+            margin-bottom: 80px;
         }
-        .perspectiveTransform2__button>button {
+        .division_line_container_item {
+            width: 80%;
             border: 0;
-            border-radius: 10px;
-            color: white;
-            background: #3498db;
-            width: 250px;
-            height: 80px;
-            font-size: 30px;
-            cursor: pointer;
-            -webkit-box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
-            -moz-box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
-            box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 250.75), rgba(0, 0, 0, 0));
         }
+        /* to here, navigation bar css */
     </style>
 </head>
-<body>
-<% request.setCharacterEncoding("UTF-8"); %>
-<%
- 	String point1x = request.getParameter("point1x");
- 	String point1y = request.getParameter("point1y");
- 	String point2x = request.getParameter("point2x");
- 	String point2y = request.getParameter("point2y");
- 	String point3x = request.getParameter("point3x");
-	String point3y = request.getParameter("point3y");
-	String point4x = request.getParameter("point4x");
-	String point4y = request.getParameter("point4y");
- 	String base64 = request.getParameter("base64");
- 	
 
- 		
- 		  try{
- 		   Socket s = new Socket("localhost",3000);
- 		   
- 		   OutputStream os = s.getOutputStream();
- 		   InputStream is = s.getInputStream();
- 		   BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
- 		   BufferedReader br = new BufferedReader(new InputStreamReader(is));
- 		   
- 		   bw.write(" => 클라이언트 입니다. \n");
- 		   bw.flush();
- 		   
- 		   String message = br.readLine();
- 		   System.out.println("[서버 메세지] " + message);
- 		  }catch(UnknownHostException e){
- 		   System.out.println("[경고] 서버를 찾을 수 없습니다.");
- 		  }catch(IOException e){
- 		   System.out.println("[경고] 사용되지 않는 PORT 번호 입니다.");
- 		  }
- %>
- <div class="perspectiveTransform2">
+<body>
+    <div class="document">
         <div class="navigationContainer">
             <div class="navigationContainer_left">
                 <div class="navigationContainer_left_logoOrName">
@@ -246,19 +231,46 @@
                 </div>
             </div>
         </div>
-        <div class="perspectiveTransform2__body">
-            <div class="perspectiveTransform2__body_left">
-                <img width="400" src="https://4.img-dpreview.com/files/p/E~TS590x0~articles/3925134721/0266554465.jpeg"
-                    alt="">
+        <div class="document__body">
+            <div class="document__body__left">
+                <div class="document__body__left__navigation_box">
+                    <div class="document__body__left__navigation_box__item">
+                        Introduce
+                    </div>
+                    <div class="document__body__left__navigation_box__item">
+                        Perspective Transform
+                    </div>
+                </div>
             </div>
-            <div class="perspectiveTransform2__body_left">
-                <img width="400" src="https://4.img-dpreview.com/files/p/E~TS590x0~articles/3925134721/0266554465.jpeg"
-                    alt="">
+            <div class="document__body__right">
+                <div class="document__body__right__title_text">
+                    Introduce
+                </div>
+                <div class="document__body__right__normal_text">
+                    Welcome to MANDOO! <br><br>
+                    If you have any picture you really want to get in the other image?
+                    If you have any black and white photo you want to convert to color photo?
+                    <br><br><br>
+                    We are providing these services in very simple way and free!
+                    Enjoy our web site then experience it now!
+                </div>
+                <div class="division_line_container">
+                    <div class="division_line_container_item"></div>
+                </div>
+                <div class="document__body__right__title_text">
+                    Perspective Transform
+                </div>
+                <div class="document__body__right__normal_text">
+                    First, click the "upload image button" then select some image you want to cut
+                    <br><br>
+                    Second, Point 4 points that you want to cut from the image
+                    <br><br>
+                    Third, You can see the original image on the left side, converted image on the right side. <br> <br>
+                    Also you can click the button to download image
+                </div>
             </div>
-        </div>
-        <div class="perspectiveTransform2__button">
-            <button>DOWNLOAD</button>
         </div>
     </div>
- </body>
+</body>
+
 </html>
