@@ -150,6 +150,9 @@
             align-items: flex-end;
             cursor: pointer;
         }
+        
+            /* to here, navigation bar css */
+        
         .document__body {
             display: flex;
             width: 100%;
@@ -202,35 +205,49 @@
             height: 1px;
             background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 250.75), rgba(0, 0, 0, 0));
         }
-        /* to here, navigation bar css */
+    
+    a {
+      color:white;
+      text-decoration:none;
+      }
+      
+      .navigationContainer_left_logoOrName > .test {
+      font-size:25px;
+      }
     </style>
 </head>
 
 <body>
     <div class="document">
         <div class="navigationContainer">
-            <div class="navigationContainer_left">
-                <div class="navigationContainer_left_logoOrName">
-                    MAN DOO
-                </div>
-                <div class="navigationContainer_left_aTag">
-                    <div class="navigationContainer_left_aTag__text">
-                        perspective transform
-                    </div>
-                    <div class="navigationContainer_left_aTag__text">
-                        colorize images
-                    </div>
-                    <div class="navigationContainer_left_aTag__text">
-                        DOC
-                    </div>
-                </div>
+        <div class="navigationContainer_left">
+          <div class="navigationContainer_left_logoOrName">
+            <a class="test" href="http://localhost:8080/WebProject/index.jsp">MAN DOO</a>
+          </div>
+          <div class="navigationContainer_left_aTag">
+            <div class="navigationContainer_left_aTag__text">
+            <a href="http://localhost:8080/WebProject/index.jsp?route=perspectiveTransform">
+              perspective transform
+            </a>
             </div>
-            <div class="navigationContainer_right">
-                <div class="navigationContainer_right_logout">
-                    logout
-                </div>
+            <div class="navigationContainer_left_aTag__text">
+            <a href="http://localhost:8080/WebProject/index.jsp?route=colorizeImages">
+              colorize images
+            </a>
             </div>
+            <div class="navigationContainer_left_aTag__text">
+            	<a href="http://localhost:8080/WebProject/index.jsp?route=document">
+              DOC
+            	</a>
+            </div>
+          </div>
         </div>
+        <div class="navigationContainer_right">
+          <div class="navigationContainer_right_logout">
+            LOGOUT
+          </div>
+        </div>
+      </div>
         <div class="document__body">
             <div class="document__body__left">
                 <div class="document__body__left__navigation_box">

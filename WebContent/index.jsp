@@ -18,7 +18,7 @@ if(id == null){	// session값이 존재하지 않으면
 	loggedIn = true;	// 로그인이 되어져있다.
 }
 
-if(loggedIn){		// 로그인이 되어져있으면
+if(!loggedIn){		// 로그인이 되어져있으면
 	%>
 	<jsp:forward page="./components/privateComponent.jsp" />	<!-- privateComponent 로 가고 -->
 	<% 

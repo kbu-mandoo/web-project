@@ -213,6 +213,10 @@
         box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.75);
         cursor: pointer;
       }
+      a {
+      color:white;
+      text-decoration:none;
+      }
     </style>
   </head>
   <%
@@ -453,23 +457,29 @@
       <div class="navigationContainer">
         <div class="navigationContainer_left">
           <div class="navigationContainer_left_logoOrName">
-            MAN DOO
+            <a href="http://localhost:8080/WebProject/index.jsp">MAN DOO</a>
           </div>
           <div class="navigationContainer_left_aTag">
             <div class="navigationContainer_left_aTag__text">
+            <a href="http://localhost:8080/WebProject/index.jsp?route=perspectiveTransform">
               perspective transform
+            </a>
             </div>
             <div class="navigationContainer_left_aTag__text">
+            <a href="http://localhost:8080/WebProject/index.jsp?route=colorizeImages">
               colorize images
+            </a>
             </div>
             <div class="navigationContainer_left_aTag__text">
+            	<a href="http://localhost:8080/WebProject/index.jsp?route=document">
               DOC
+            	</a>
             </div>
           </div>
         </div>
         <div class="navigationContainer_right">
           <div class="navigationContainer_right_logout">
-            logout
+            LOGOUT
           </div>
         </div>
       </div>

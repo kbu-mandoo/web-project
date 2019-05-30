@@ -200,7 +200,7 @@
 	String point4x = request.getParameter("point4x");
 	String point4y = request.getParameter("point4y");
  	String base64 = request.getParameter("base64");
- 	
+ 	boolean loading = true;
 
  		
  		  try{
