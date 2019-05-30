@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.io.*"  %>
 <%@ page import="java.net.*"  %>
+<%@ page import="org.json.simple.JSONObject"%>
+<%@ page import="org.json.simple.JSONArray"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -191,36 +194,51 @@
 <body>
 <% request.setCharacterEncoding("UTF-8"); %>
 <%
- 	String point1x = request.getParameter("point1x");
- 	String point1y = request.getParameter("point1y");
- 	String point2x = request.getParameter("point2x");
- 	String point2y = request.getParameter("point2y");
- 	String point3x = request.getParameter("point3x");
-	String point3y = request.getParameter("point3y");
-	String point4x = request.getParameter("point4x");
-	String point4y = request.getParameter("point4y");
+ 	int point1x = Integer.parseInt(request.getParameter("point1x"));
+ 	int point1y = Integer.parseInt(request.getParameter("point1y"));
+ 	int point2x = Integer.parseInt(request.getParameter("point2x"));
+ 	int point2y = Integer.parseInt(request.getParameter("point2y"));
+ 	int point3x = Integer.parseInt(request.getParameter("point3x"));
+	int point3y = Integer.parseInt(request.getParameter("point3y"));
+	int point4x = Integer.parseInt(request.getParameter("point4x"));
+	int point4y = Integer.parseInt(request.getParameter("point4y"));
  	String base64 = request.getParameter("base64");
- 	boolean loading = true;
-
+ 	byte[] base64Image = base64.getBytes();
+ 	JSONObject json = new JSONObject();
+ 	json.put("req", "perspective");
+ 	json.put("img", base64);
+ 	json.put("cdn_x1", point1x);
+ 	json.put("cdn_x2", point2x);
+ 	json.put("cdn_x3", point3x);
+ 	json.put("cdn_x4", point4x);
+ 	json.put("cdn_y1", point1y);
+ 	json.put("cdn_y2", point2y);
+ 	json.put("cdn_y3", point3y);
+ 	json.put("cdn_y4", point4y);
+ 	
+ 	System.out.println("base64 length");
+ 	System.out.println(base64.length());
+ 	System.out.println("base64 length After put in json");
+ 	System.out.println(json.get("img").toString().length());
+ 	
+ 	DataInputStream is;
+	DataOutputStream os;
+ 	
+ 	try{
+ 		Socket s = new Socket("210.123.255.179", 9766);
+ 		is = new DataInputStream(s.getInputStream());
+ 		os = new DataOutputStream(s.getOutputStream());
+ 		PrintWriter pw = new PrintWriter(os);
+ 		pw.println(json);
+ 		pw.flush();
  		
- 		  try{
- 		   Socket s = new Socket("localhost",3000);
- 		   
- 		   OutputStream os = s.getOutputStream();
- 		   InputStream is = s.getInputStream();
- 		   BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
- 		   BufferedReader br = new BufferedReader(new InputStreamReader(is));
- 		   
- 		   bw.write(" => 클라이언트 입니다. \n");
- 		   bw.flush();
- 		   
- 		   String message = br.readLine();
- 		   System.out.println("[서버 메세지] " + message);
- 		  }catch(UnknownHostException e){
- 		   System.out.println("[경고] 서버를 찾을 수 없습니다.");
- 		  }catch(IOException e){
- 		   System.out.println("[경고] 사용되지 않는 PORT 번호 입니다.");
- 		  }
+ 	}catch(IOException e){
+ 		e.printStackTrace();
+ 	}
+ 	
+ 	
+ 	
+ 	
  %>
  <div class="perspectiveTransform2">
         <div class="navigationContainer">

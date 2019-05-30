@@ -239,6 +239,10 @@
       reader.onloadend = function() {
         preview.src = reader.result; // base64 파일
         base64 = reader.result;
+        console.log('base64:');
+        console.log(base64)
+        console.log('type:');
+        console.log(typeof(base64));
         imageContainer.background = reader.result;
       };
       if (file) {
@@ -446,8 +450,9 @@
         `<input type="hidden" name="point4x" value=`+point4.x+` />`+
         `<input type="hidden" name="point4y" value=`+point4.y+` />`+
         `<input type="hidden" name="base64" value=`+base64+` />`);
-
-
+        
+        
+    
         return true;
     }
   </script>
@@ -493,7 +498,6 @@
             name="image"
             class="perspectiveTransform__container__body__file_input"
             onchange="previewFile()"
-            
           />
           
           <div
