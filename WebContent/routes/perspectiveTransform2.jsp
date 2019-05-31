@@ -194,14 +194,14 @@
 <body>
 <% request.setCharacterEncoding("UTF-8"); %>
 <%
- 	int point1x = Integer.parseInt(request.getParameter("point1x"));
- 	int point1y = Integer.parseInt(request.getParameter("point1y"));
- 	int point2x = Integer.parseInt(request.getParameter("point2x"));
- 	int point2y = Integer.parseInt(request.getParameter("point2y"));
- 	int point3x = Integer.parseInt(request.getParameter("point3x"));
-	int point3y = Integer.parseInt(request.getParameter("point3y"));
-	int point4x = Integer.parseInt(request.getParameter("point4x"));
-	int point4y = Integer.parseInt(request.getParameter("point4y"));
+ 	int point1x = Integer.parseInt(request.getParameter("point1x").trim());
+ 	int point1y = Integer.parseInt(request.getParameter("point1y").trim());
+ 	int point2x = Integer.parseInt(request.getParameter("point2x").trim());
+ 	int point2y = Integer.parseInt(request.getParameter("point2y").trim());
+ 	int point3x = Integer.parseInt(request.getParameter("point3x").trim());
+	int point3y = Integer.parseInt(request.getParameter("point3y").trim());
+	int point4x = Integer.parseInt(request.getParameter("point4x").trim());
+	int point4y = Integer.parseInt(request.getParameter("point4y").trim());
  	String base64 = request.getParameter("base64");
  	byte[] base64Image = base64.getBytes();
  	JSONObject json = new JSONObject();
@@ -216,21 +216,26 @@
  	json.put("cdn_y3", point3y);
  	json.put("cdn_y4", point4y);
  	
- 	System.out.println("base64 length");
- 	System.out.println(base64.length());
- 	System.out.println("base64 length After put in json");
- 	System.out.println(json.get("img").toString().length());
+ 	long jsonDataLength = new Long(json.toString().length());
+ 	System.out.println("json length: ");
+ 	System.out.println(jsonDataLength);
  	
- 	DataInputStream is;
-	DataOutputStream os;
  	
  	try{
- 		Socket s = new Socket("210.123.255.179", 9766);
- 		is = new DataInputStream(s.getInputStream());
- 		os = new DataOutputStream(s.getOutputStream());
- 		PrintWriter pw = new PrintWriter(os);
- 		pw.println(json);
- 		pw.flush();
+ 		Socket socket = new Socket("210.123.255.179", 9766);
+ 		
+ 		DataInputStream input = new DataInputStream(socket.getInputStream());
+ 		DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+ 		
+        	output.writeLong(jsonDataLength);
+			output.writeUTF(json.toString());
+			output.flush();
+            System.out.println("client: waiting...");
+            String responseFromServer = input.readUTF();
+            System.out.printf("client: got response: %s\n", response);
+        
+        socket.close();
+ 		
  		
  	}catch(IOException e){
  		e.printStackTrace();

@@ -432,6 +432,16 @@
         createLine(point4.x, point4.y, point1.x, point1.y, "line4");
         createLine(point3.x, point3.y, point4.x, point4.y, "line3");
       }
+      
+      console.log(point1.x);
+      console.log(point2.x);
+      console.log(point3.x);
+      console.log(point4.x);
+      console.log(point1.y);
+      console.log(point2.y);
+      console.log(point3.y);
+      console.log(point4.y);
+      
     }
     
     function onclickSubmit() {
