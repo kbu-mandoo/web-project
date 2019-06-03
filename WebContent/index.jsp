@@ -14,7 +14,7 @@ String id = (String)session.getAttribute("id");
 boolean loggedIn = false;
 if(id == null){	// session값이 존재하지 않으면
 	loggedIn = false;	// 로그인이 되어져있지 않고
-}else {			// session값이 존재하면
+}else {			// session값이 존재하
 	loggedIn = true;	// 로그인이 되어져있다.
 }
 

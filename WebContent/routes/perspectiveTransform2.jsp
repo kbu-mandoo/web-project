@@ -1,9 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.io.*"  %>
+<%@ page import="java.io.ByteArrayOutputStream" %>
 <%@ page import="java.net.*"  %>
 <%@ page import="org.json.simple.JSONObject"%>
 <%@ page import="org.json.simple.JSONArray"%>
-
+<%@ page import="java.util.*" %>
+<%@ page import="javax.servlet.*" %>
+<%@ page import="javax.servlet.http.*" %>
+<%@ page import = "org.apache.commons.fileupload.*" %>
+<%@ page import = "org.apache.commons.fileupload.disk.*" %>
+<%@ page import = "org.apache.commons.fileupload.servlet.*" %>
+<%@ page import = "org.apache.commons.io.output.*" %>
+<%@ page import = "org.apache.commons.codec.binary.Base64" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -163,11 +171,13 @@
             display: flex;
             justify-content: center;
             margin-top: 100px;
+            align-items: center;
         }
         .perspectiveTransform2__body_left>img {
             -webkit-box-shadow: 10px 10px 23px -13px rgba(0, 0, 0, 0.75);
             -moz-box-shadow: 10px 10px 23px -13px rgba(0, 0, 0, 0.75);
             box-shadow: 10px 10px 23px -13px rgba(0, 0, 0, 0.75);
+            max-width: 500px;
         }
         .perspectiveTransform2__button {
             width: 100%;
@@ -193,53 +203,160 @@
 </head>
 <body>
 <% request.setCharacterEncoding("UTF-8"); %>
+<%!
+
+
+private static class IPC{
+		private static final int BUFSIZE = 2048;
+		
+		public static String interact(String message, String dstIP, int dstPort) throws IOException {
+			return IPC.interact(message, dstIP, dstPort);
+		}
+		
+		public static String interact(String message, String dstIP, int dstPort, int timeout) throws IOException {
+			try(Socket s = new Socket(dstIP, dstPort)){
+				DataInputStream in = new DataInputStream(s.getInputStream());
+				DataOutputStream out = new DataOutputStream(s.getOutputStream());
+				
+				// send json data to server
+				out.writeInt(message.length());
+				out.write(message.getBytes());
+				out.flush();
+				
+				//receiv base64 image or err message
+				System.out.println("hi!");
+				s.setSoTimeout(timeout);
+				System.out.println("hi!2");
+				// 4 bytes prefix -> length of json data
+				int imageLen = in.readInt();
+				
+				int totalLen = 0;
+				if(imageLen == 0) {
+					// no data
+					return "";
+				}
+				
+				ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+				byte[] chunk = new byte[BUFSIZE];
+				do {
+					int readLen = in.read(chunk);
+					totalLen += readLen;
+					if(readLen == BUFSIZE) {
+						outStream.write(chunk);
+					}else {
+						outStream.write(Arrays.copyOfRange(chunk, 0, readLen));
+					}
+				}while (totalLen < imageLen);
+				
+				return outStream.toString(); 	// base64 image or err message
+			}
+		}
+	}
+%>
 <%
- 	int point1x = Integer.parseInt(request.getParameter("point1x").trim());
- 	int point1y = Integer.parseInt(request.getParameter("point1y").trim());
- 	int point2x = Integer.parseInt(request.getParameter("point2x").trim());
- 	int point2y = Integer.parseInt(request.getParameter("point2y").trim());
- 	int point3x = Integer.parseInt(request.getParameter("point3x").trim());
-	int point3y = Integer.parseInt(request.getParameter("point3y").trim());
-	int point4x = Integer.parseInt(request.getParameter("point4x").trim());
-	int point4y = Integer.parseInt(request.getParameter("point4y").trim());
- 	String base64 = request.getParameter("base64");
- 	byte[] base64Image = base64.getBytes();
+	 boolean loading = true;
+	String dstIP = "192.168.0.121";
+	int dstPort = 9766;
+/*  	int point1x = Integer.parseInt(request.getParameter("point1x"));
+ 	int point1y = Integer.parseInt(request.getParameter("point1y"));
+ 	int point2x = Integer.parseInt(request.getParameter("point2x"));
+ 	int point2y = Integer.parseInt(request.getParameter("point2y"));
+ 	int point3x = Integer.parseInt(request.getParameter("point3x"));
+	int point3y = Integer.parseInt(request.getParameter("point3y"));
+	int point4x = Integer.parseInt(request.getParameter("point4x"));
+	int point4y = Integer.parseInt(request.getParameter("point4y")); */
+	String base64 = "";
+	String stringBase64 = "";
  	JSONObject json = new JSONObject();
  	json.put("req", "perspective");
- 	json.put("img", base64);
- 	json.put("cdn_x1", point1x);
+
+	
+/* 	System.out.println("point1x:"+point1x); */
+	
+	
+	/* Get File from previous jsp page  */
+	File file;
+	int maxFileSize = 5000 * 1024;
+	int maxMemSize = 5000 * 1024;
+	ServletContext context = pageContext.getServletContext();
+	
+	// Verify the content type
+	String contentType = request.getContentType();
+	if((contentType.indexOf("multipart/form-data") >= 0)){
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		//Maximun size that will be stored in memory
+		factory.setSizeThreshold(maxMemSize);
+		
+		// Create a new file upload handler
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		// maximun file size to be uploaded
+		upload.setSizeMax(maxFileSize);
+		try{
+			// Parse the request to get file items.
+			List<FileItem> fileItems = upload.parseRequest(request);
+			
+			// Process the uploaded file items
+			Iterator i = fileItems.iterator();
+			
+			while (i.hasNext()) {
+				FileItem fi = (FileItem)i.next();
+				if(!fi.isFormField()) {
+					// Get the uploaded file parameters
+					String fieldName = fi.getFieldName();
+					String fileName = fi.getName();
+					boolean isInMemory = fi.isInMemory();
+					long sizeInBytes = fi.getSize();
+
+/* 					base64 = fi.get();
+					stringBase64 = Base64.encodeBase64String(base64); */
+				}
+			}
+			
+			for (FileItem uploadItem : fileItems) {
+				if(uploadItem.isFormField()) {
+					String fieldName = uploadItem.getFieldName();
+					String value = uploadItem.getString();
+					try{
+						json.put(fieldName, Integer.parseInt(value));	
+					}catch(Exception e) {
+						json.put(fieldName, value);
+						base64 = value;
+					}
+					
+				}
+			}
+			
+		}catch(Exception ex) {
+			System.out.println(ex);
+		}
+	}
+	
+	
+	
+	
+	/* Get File from previous jsp page  */
+	
+
+
+/*  	json.put("cdn_x1", point1x);
  	json.put("cdn_x2", point2x);
  	json.put("cdn_x3", point3x);
  	json.put("cdn_x4", point4x);
  	json.put("cdn_y1", point1y);
  	json.put("cdn_y2", point2y);
  	json.put("cdn_y3", point3y);
- 	json.put("cdn_y4", point4y);
+ 	json.put("cdn_y4", point4y); */
  	
  	long jsonDataLength = new Long(json.toString().length());
  	System.out.println("json length: ");
  	System.out.println(jsonDataLength);
  	
  	
- 	try{
- 		Socket socket = new Socket("210.123.255.179", 9766);
- 		
- 		DataInputStream input = new DataInputStream(socket.getInputStream());
- 		DataOutputStream output = new DataOutputStream(socket.getOutputStream());
- 		
-        	output.writeLong(jsonDataLength);
-			output.writeUTF(json.toString());
-			output.flush();
-            System.out.println("client: waiting...");
-            String responseFromServer = input.readUTF();
-            System.out.printf("client: got response: %s\n", response);
-        
-        socket.close();
- 		
- 		
- 	}catch(IOException e){
- 		e.printStackTrace();
- 	}
+ 	String resultImageBase64OrErrorMessage = "";
+ 	resultImageBase64OrErrorMessage = IPC.interact(json.toString(),dstIP, dstPort, 10000);
+ 	
+ 	
+ 	loading = false; 
  	
  	
  	
@@ -269,16 +386,29 @@
                 </div>
             </div>
         </div>
-        <div class="perspectiveTransform2__body">
+        <%
+        if(loading) {
+        	%>
+        	<div>loading...</div>
+        	<%
+        }
+
+        else {
+        	%>
+        	<div class="perspectiveTransform2__body">
             <div class="perspectiveTransform2__body_left">
-                <img width="400" src="https://4.img-dpreview.com/files/p/E~TS590x0~articles/3925134721/0266554465.jpeg"
+                <img  src="<%=base64%>"
                     alt="">
             </div>
             <div class="perspectiveTransform2__body_left">
-                <img width="400" src="https://4.img-dpreview.com/files/p/E~TS590x0~articles/3925134721/0266554465.jpeg"
+                <img  src="<%=resultImageBase64OrErrorMessage%>"
                     alt="">
             </div>
         </div>
+        	<%
+        }
+        %> 
+        
         <div class="perspectiveTransform2__button">
             <button>DOWNLOAD</button>
         </div>
