@@ -224,9 +224,7 @@ private static class IPC{
 				out.flush();
 				
 				//receiv base64 image or err message
-				System.out.println("hi!");
 				s.setSoTimeout(timeout);
-				System.out.println("hi!2");
 				// 4 bytes prefix -> length of json data
 				int imageLen = in.readInt();
 				
