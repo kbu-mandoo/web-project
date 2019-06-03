@@ -255,7 +255,7 @@ private static class IPC{
 %>
 <%
 	 boolean loading = true;
-	String dstIP = "192.168.0.121";
+	String dstIP = "192.168.0.56";
 	int dstPort = 9766;
 /*  	int point1x = Integer.parseInt(request.getParameter("point1x"));
  	int point1y = Integer.parseInt(request.getParameter("point1y"));
