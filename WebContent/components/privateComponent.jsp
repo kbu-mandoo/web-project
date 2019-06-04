@@ -34,7 +34,7 @@
 		<%
 	} else {
 		%>
-		<jsp:include page="../routes/perspectiveTransform.jsp" flush="false" />
+		<jsp:include page="/routes/main.jsp" flush="false" />
 		<%
 	}
 %>
