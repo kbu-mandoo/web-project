@@ -218,8 +218,8 @@
       width: 150px;
       height: 50px;
       font-size: 30px;
-      color: white;
-      background-color: #3498db;
+      color: #3498db;
+      background-color: white;
       border: 0;
       border-radius: 5px;
       margin-top: 40px;
@@ -233,12 +233,91 @@
       color: white;
       text-decoration: none;
     }
+
+    .invisiable {
+      display: none;
+    }
+
+    .visiable {
+      display: inline;
+    }
+
+    /* loading component style from here */
+    .loading__container {
+      background-color: #2c3e50;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "montserrat", sans-serif;
+    }
+
+    .loading {
+      width: 200px;
+      height: 200px;
+      box-sizing: border-box;
+      border-radius: 50%;
+      border-top: 10px solid #e74c3c;
+      position: relative;
+      animation: a1 2s linear infinite;
+    }
+
+    .loading::before,
+    .loading::after {
+      content: '';
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      left: 0;
+      top: -10px;
+      box-sizing: border-box;
+      border-radius: 50%;
+    }
+
+    .loading::before {
+      border-top: 10px solid #e67e22;
+      transform: rotate(120deg);
+    }
+
+    .loading::after {
+      border-top: 10px solid #3498db;
+      transform: rotate(240deg);
+    }
+
+    .loading span {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      color: #fff;
+      text-align: center;
+      line-height: 200px;
+      animation: a2 2s linear infinite;
+    }
+
+    @keyframes a1 {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes a2 {
+      to {
+        transform: rotate(-360deg);
+      }
+    }
+
+    /* loading component style to here */
   </style>
 </head>
-<%
-  	
-  %>
+
 <script>
+  ImageContainerVisiable = false;
+  ImageUploaderVisiable = true;
+  SendButtonVisiable = false;
+  loading = true;
+
   var point1 = {
     x: null,
     y: null
@@ -257,7 +336,7 @@
   };
   var file = null;
   var base64 = null;
-  
+
   var imageWidthFromBase64 = null;
 
   function previewFile() {
@@ -271,12 +350,12 @@
       preview.src = reader.result; // base64 파일
       base64 = reader.result;
       var img = new Image();
-      
+
       img.src = base64.toString();
-      img.onload =  function () {
-    	imageWidthFromBase64 = img.width;
+      img.onload = function () {
+        imageWidthFromBase64 = img.width;
       }
-      
+
       imageContainer.background = reader.result;
     };
     if (file) {
@@ -284,8 +363,13 @@
     } else {
       preview.src = "";
     }
+    $(".perspectiveTransform__container__body__file_input").attr('class',
+      'perspectiveTransform__container__body__file_input invisiable');
+    $(".perspectiveTransform__container__body__file_input_container_text_button").attr('class',
+      'perspectiveTransform__container__body__file_input_container_text_button invisiable')
+    $("#perspectiveTransform__container__body__img_container").removeClass('invisiable')
   }
-  previewFile();
+  //previewFile();
 
   function clickOnTheImage() {
     if (point1.x == null && point1.y == null) {
@@ -364,6 +448,7 @@
       );
       createLine(point3.x, point3.y, point4.x, point4.y, "line3");
       createLine(point4.x, point4.y, point1.x, point1.y, "line4");
+      $("#perspectiveTransform__container__body_button").removeClass('invisiable')
     }
     console.log("point1:", point1);
     console.log("point2:", point2);
@@ -497,17 +582,17 @@
     ) {
       return false;
     }
-    
+
     if (imageWidthFromBase64 > 1200) {
-    	var proportionToMultiply = imageWidthFromBase64 / 1200;
-    	point1.x = parseInt(point1.x * proportionToMultiply);
-    	point1.y = parseInt(point1.y * proportionToMultiply);
-    	point2.x = parseInt(point2.x * proportionToMultiply);
-    	point2.y = parseInt(point2.y * proportionToMultiply);
-    	point3.x = parseInt(point3.x * proportionToMultiply);
-    	point3.y = parseInt(point3.y * proportionToMultiply);
-    	point4.x = parseInt(point4.x * proportionToMultiply);
-    	point4.y = parseInt(point4.y * proportionToMultiply);
+      var proportionToMultiply = imageWidthFromBase64 / 1200;
+      point1.x = parseInt(point1.x * proportionToMultiply);
+      point1.y = parseInt(point1.y * proportionToMultiply);
+      point2.x = parseInt(point2.x * proportionToMultiply);
+      point2.y = parseInt(point2.y * proportionToMultiply);
+      point3.x = parseInt(point3.x * proportionToMultiply);
+      point3.y = parseInt(point3.y * proportionToMultiply);
+      point4.x = parseInt(point4.x * proportionToMultiply);
+      point4.y = parseInt(point4.y * proportionToMultiply);
     }
 
 
@@ -518,8 +603,8 @@
       `<input type="hidden" name="cdn_x3" value=` + point3.x + ` />` +
       `<input type="hidden" name="cdn_y3" value=` + point3.y + ` />` +
       `<input type="hidden" name="cdn_x4" value=` + point4.x + ` />` +
-      `<input type="hidden" name="cdn_y4" value=` + point4.y + ` />` + 
-      `<input type="hidden" name="img" value=`+base64+` />`);
+      `<input type="hidden" name="cdn_y4" value=` + point4.y + ` />` +
+      `<input type="hidden" name="img" value=` + base64 + ` />`);
     /* +`<input type="hidden" name="base64" value=`+base64+` />`); */
 
 
@@ -529,25 +614,30 @@
 </script>
 
 <body>
-  <div class="perspectiveTransform__container">
+  <div class="loading__container">
+    <div class="loading">
+      <span>Loading...</span>
+    </div>
+  </div>
+  <div class="perspectiveTransform__container invisiable">
     <div class="navigationContainer">
       <div class="navigationContainer_left">
         <div class="navigationContainer_left_logoOrName">
-          <a href="http://localhost:8080/WebProject/index.jsp">MAN DOO</a>
+          <a href="/WebProject/index.jsp">MAN DOO</a>
         </div>
         <div class="navigationContainer_left_aTag">
           <div class="navigationContainer_left_aTag__text">
-            <a href="http://localhost:8080/WebProject/index.jsp?route=perspectiveTransform">
+            <a href="/WebProject/index.jsp?route=perspectiveTransform">
               perspective transform
             </a>
           </div>
           <div class="navigationContainer_left_aTag__text">
-            <a href="http://localhost:8080/WebProject/index.jsp?route=colorizeImages">
+            <a href="/WebProject/index.jsp?route=colorizeImages">
               colorize images
             </a>
           </div>
           <div class="navigationContainer_left_aTag__text">
-            <a href="http://localhost:8080/WebProject/index.jsp?route=document">
+            <a href="/WebProject/index.jsp?route=document">
               DOC
             </a>
           </div>
@@ -561,16 +651,21 @@
     </div>
     <div class="perspectiveTransform__container__body">
       <div class="perspectiveTransform__container__body__file_input_container">
-        <form enctype = "multipart/form-data" action="http://localhost:8080/WebProject/routes/perspectiveTransform2.jsp"
+        <form enctype="multipart/form-data" action="http://localhost:8080/WebProject/routes/perspectiveTransform2.jsp"
           onsubmit="return onclickSubmit()" class="form" method="POST">
+
           <input type="file" name="image" class="perspectiveTransform__container__body__file_input"
             onchange="previewFile()" />
 
           <div class="perspectiveTransform__container__body__file_input_container_text_button">
             Click here to upload image!
           </div>
+
+
       </div>
-      <div draggable="false" class="perspectiveTransform__container__body__img_container">
+
+      <div draggable="false" id="perspectiveTransform__container__body__img_container"
+        class="perspectiveTransform__container__body__img_container invisiable">
         <img src="#" class="perspectiveTransform__container__body__img" alt="preview image" onclick="clickOnTheImage()"
           draggable="false" />
 
@@ -580,9 +675,13 @@
         <div class="line" id="line4"></div>
       </div>
 
-      <button class="perspectiveTransform__container__body_button">
+      <button id="perspectiveTransform__container__body_button"
+        class="perspectiveTransform__container__body_button invisiable">
         NEXT
       </button>
+
+
+
       </form>
     </div>
   </div>
