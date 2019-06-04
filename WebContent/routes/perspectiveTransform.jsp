@@ -341,7 +341,7 @@
   var imageWidthFromBase64 = null;
 
   $(document).ready(function () {
-    setTimeout(() => {
+    setTimeout(function(){
       $("#loading__container").addClass('invisiable')
       $("#loading__container").css('display', 'none')
       $("#perspectiveTransform__container").removeClass('invisiable')
