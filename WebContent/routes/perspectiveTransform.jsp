@@ -212,6 +212,7 @@
     .perspectiveTransform__container__body__file_input_container_text_button {
       width: 210px;
       margin-bottom: 40px;
+      margin-top: 150px;
     }
 
     .perspectiveTransform__container__body_button {
@@ -338,6 +339,14 @@
   var base64 = null;
 
   var imageWidthFromBase64 = null;
+
+  $(document).ready(function () {
+    setTimeout(() => {
+      $("#loading__container").addClass('invisiable')
+      $("#loading__container").css('display', 'none')
+      $("#perspectiveTransform__container").removeClass('invisiable')
+    }, 2800);
+  })
 
   function previewFile() {
     var preview = document.querySelector("img"); // img 태그를 선택한다.
@@ -614,12 +623,12 @@
 </script>
 
 <body>
-  <div class="loading__container">
+  <div id="loading__container" class="loading__container">
     <div class="loading">
       <span>Loading...</span>
     </div>
   </div>
-  <div class="perspectiveTransform__container invisiable">
+  <div id="perspectiveTransform__container" class="perspectiveTransform__container invisiable">
     <div class="navigationContainer">
       <div class="navigationContainer_left">
         <div class="navigationContainer_left_logoOrName">
