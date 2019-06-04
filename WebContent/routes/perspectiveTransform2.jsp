@@ -14,14 +14,15 @@
 <%@ page import = "org.apache.commons.codec.binary.Base64" %>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<title>Insert title here</title>
-<style>
+    <title>Insert title here</title>
+    <style>
         html,
         body,
         div,
@@ -112,6 +113,7 @@
             background-color: #2c3e50;
             color: white;
         }
+
         .perspectiveTransform2 {
             min-width: 100vw;
             min-height: 100vh;
@@ -119,6 +121,7 @@
             flex-direction: column;
             font-family: "Nanum Gothic", sans-serif;
         }
+
         /* from here */
         .navigationContainer {
             display: flex;
@@ -128,12 +131,14 @@
             padding-right: 30px;
             align-items: flex-end;
         }
+
         .navigationContainer_left_logoOrName {
             margin-right: 50px;
             font-weight: 900;
             font-size: 25px;
             cursor: pointer;
         }
+
         .navigationContainer_left_aTag__text {
             margin-right: 20px;
             cursor: pointer;
@@ -144,28 +149,35 @@
             align-items: flex-end;
             transition: 0.2s ease-in-out;
         }
+
         .navigationContainer_left_aTag__text:hover {
             font-size: 16px;
         }
+
         .navigationContainer_left {
             display: flex;
             align-items: flex-end;
         }
+
         .navigationContainer_left_aTag {
             display: flex;
         }
+
         .navigationContainer_right {}
+
         .navigationContainer_right_logout {
             display: flex;
             align-items: flex-end;
             cursor: pointer;
         }
+
         /* to here, navigation bar css */
         .perspectiveTransform2__body {
             width: 100%;
             height: 100%;
             display: flex;
         }
+
         .perspectiveTransform2__body_left {
             width: 50%;
             display: flex;
@@ -173,12 +185,14 @@
             margin-top: 100px;
             align-items: center;
         }
+
         .perspectiveTransform2__body_left>img {
             -webkit-box-shadow: 10px 10px 23px -13px rgba(0, 0, 0, 0.75);
             -moz-box-shadow: 10px 10px 23px -13px rgba(0, 0, 0, 0.75);
             box-shadow: 10px 10px 23px -13px rgba(0, 0, 0, 0.75);
             max-width: 500px;
         }
+
         .perspectiveTransform2__button {
             width: 100%;
             display: flex;
@@ -186,11 +200,12 @@
             margin-top: 140px;
             margin-bottom: 110px;
         }
-        .perspectiveTransform2__button>button {
+
+        .perspectiveTransform2__button>a>button {
             border: 0;
             border-radius: 10px;
-            color: white;
-            background: #3498db;
+            color: #3498db;
+            background: white;
             width: 250px;
             height: 80px;
             font-size: 30px;
@@ -199,11 +214,99 @@
             -moz-box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
             box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
         }
+
+        /* Style for loading component */
+
+        .loading__container {
+            background-color: #2c3e50;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "montserrat", sans-serif;
+        }
+
+        .loading {
+            width: 200px;
+            height: 200px;
+            box-sizing: border-box;
+            border-radius: 50%;
+            border-top: 10px solid #e74c3c;
+            position: relative;
+            animation: a1 2s linear infinite;
+        }
+
+        .loading::before,
+        .loading::after {
+            content: '';
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            left: 0;
+            top: -10px;
+            box-sizing: border-box;
+            border-radius: 50%;
+        }
+
+        .loading::before {
+            border-top: 10px solid #e67e22;
+            transform: rotate(120deg);
+        }
+
+        .loading::after {
+            border-top: 10px solid #3498db;
+            transform: rotate(240deg);
+        }
+
+        .loading span {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            color: #fff;
+            text-align: center;
+            line-height: 200px;
+            animation: a2 2s linear infinite;
+        }
+
+        @keyframes a1 {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes a2 {
+            to {
+                transform: rotate(-360deg);
+            }
+        }
+
+        /* Style for loading component */
+
+        .invisiable {
+            display: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
     </style>
 </head>
+
+<script>
+    $(document).ready(function () {
+        setTimeout(() => {
+            $("#loading__container").css('display', 'none');
+            $("#perspectiveTransform2__body").css('display', 'flex');
+            $("#perspectiveTransform2__button").css('display', 'flex')
+        }, 2300);
+    })
+</script>
+
 <body>
-<% request.setCharacterEncoding("UTF-8"); %>
-<%!
+    <% request.setCharacterEncoding("UTF-8"); %>
+    <%!
 
 
 private static class IPC{
@@ -251,10 +354,12 @@ private static class IPC{
 		}
 	}
 %>
-<%
+    <%
 	 boolean loading = true;
-	String dstIP = "192.168.0.56";
+	String dstIP = "192.168.0.71";
 	int dstPort = 9766;
+	String Extension = "";
+	String FileName = "";
 /*  	int point1x = Integer.parseInt(request.getParameter("point1x"));
  	int point1y = Integer.parseInt(request.getParameter("point1y"));
  	int point2x = Integer.parseInt(request.getParameter("point2x"));
@@ -302,6 +407,13 @@ private static class IPC{
 					// Get the uploaded file parameters
 					String fieldName = fi.getFieldName();
 					String fileName = fi.getName();
+					System.out.println("fileName: " + fileName);
+					// First, find index of '.'
+					int indexOfDot = fileName.indexOf(".");
+					// Get string before '.'(filename)
+					FileName = fileName.substring(0, indexOfDot);
+					// Get string after '.'
+					Extension = fileName.substring(indexOfDot+ 1);
 					boolean isInMemory = fi.isInMemory();
 					long sizeInBytes = fi.getSize();
 
@@ -360,56 +472,59 @@ private static class IPC{
  	
  	
  %>
- <div class="perspectiveTransform2">
+    <div class="perspectiveTransform2">
         <div class="navigationContainer">
             <div class="navigationContainer_left">
                 <div class="navigationContainer_left_logoOrName">
-                    MAN DOO
+                    <a href="/WebProject/index.jsp">MAN DOO</a>
                 </div>
                 <div class="navigationContainer_left_aTag">
                     <div class="navigationContainer_left_aTag__text">
-                        perspective transform
+                        <a href="/WebProject/index.jsp?route=perspectiveTransform">
+                            perspective transform
+                        </a>
                     </div>
                     <div class="navigationContainer_left_aTag__text">
-                        colorize images
+                        <a href="/WebProject/index.jsp?route=colorizeImages">
+                            colorize images
+                        </a>
                     </div>
                     <div class="navigationContainer_left_aTag__text">
-                        DOC
+                        <a href="/WebProject/index.jsp?route=document">
+                            DOC
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="navigationContainer_right">
                 <div class="navigationContainer_right_logout">
-                    logout
+                    LOGOUT
                 </div>
             </div>
         </div>
-        <%
-        if(loading) {
-        	%>
-        	<div>loading...</div>
-        	<%
-        }
 
-        else {
-        	%>
-        	<div class="perspectiveTransform2__body">
-            <div class="perspectiveTransform2__body_left">
-                <img  src="<%=base64%>"
-                    alt="">
-            </div>
-            <div class="perspectiveTransform2__body_left">
-                <img  src="<%=resultImageBase64OrErrorMessage%>"
-                    alt="">
+        <div id="loading__container" class="loading__container">
+            <div class="loading">
+                <span>Loading...</span>
             </div>
         </div>
-        	<%
-        }
-        %> 
-        
-        <div class="perspectiveTransform2__button">
-            <button>DOWNLOAD</button>
+
+        <div id="perspectiveTransform2__body" class="perspectiveTransform2__body invisiable">
+            <div class="perspectiveTransform2__body_left">
+                <img src="<%=base64%>" alt="">
+            </div>
+            <div class="perspectiveTransform2__body_left">
+                <img src="<%=resultImageBase64OrErrorMessage%>" alt="">
+            </div>
+        </div>
+
+
+        <div id="perspectiveTransform2__button" class="perspectiveTransform2__button invisiable">
+            <a download="changed_<%=FileName%>.<%=Extension%>" href="<%=resultImageBase64OrErrorMessage%>">
+                <button>DOWNLOAD</button>
+            </a>
         </div>
     </div>
- </body>
+</body>
+
 </html>
