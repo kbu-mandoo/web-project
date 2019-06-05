@@ -127,7 +127,7 @@
       cursor: pointer;
     }
 
-    .navigationContainer_left_aTag__text {
+    .navigationContainer_left_aTag__text > a {
       margin-right: 20px;
       cursor: pointer;
       font-size: 14px;
@@ -138,7 +138,7 @@
       transition: 0.2s ease-in-out;
     }
 
-    .navigationContainer_left_aTag__text:hover {
+    .navigationContainer_left_aTag__text > a:hover {
       font-size: 16px;
     }
 

@@ -237,6 +237,10 @@
 	}
 
         /* to here, navigation bar css */
+        
+        #current_page {
+        color:#74b9ff;
+        }
     </style>
 </head>
 <script>
@@ -266,7 +270,7 @@
                         </a>
                     </div>
                     <div class="navigationContainer_left_aTag__text">
-                        <a href="/WebProject/index.jsp?route=document">
+                        <a id="current_page" href="/WebProject/index.jsp?route=document">
                             DOC
                         </a>
                     </div>
