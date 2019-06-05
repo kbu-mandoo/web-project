@@ -116,52 +116,52 @@
         /* from here */
 
         .navigationContainer {
-      display: flex;
-      justify-content: space-between;
-      padding: 15px;
-      padding-left: 50px;
-      padding-right: 30px;
-      align-items: flex-end;
-    }
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            padding-left: 50px;
+            padding-right: 30px;
+            align-items: flex-end;
+        }
 
-    .navigationContainer_left_logoOrName > a {
-      margin-right: 50px;
-      font-weight: 900;
-      font-size: 25px;
-      cursor: pointer;
-    }
+        .navigationContainer_left_logoOrName>a {
+            margin-right: 50px;
+            font-weight: 900;
+            font-size: 25px;
+            cursor: pointer;
+        }
 
-    .navigationContainer_left_aTag__text > a {
-      margin-right: 20px;
-      cursor: pointer;
-      font-size: 14px;
-      width: 170px;
-      height: 27px;
-      display: flex;
-      align-items: flex-end;
-      transition: 0.2s ease-in-out;
-    }
+        .navigationContainer_left_aTag__text>a {
+            margin-right: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 170px;
+            height: 27px;
+            display: flex;
+            align-items: flex-end;
+            transition: 0.2s ease-in-out;
+        }
 
-    .navigationContainer_left_aTag__text > a:hover{
-      font-size: 16px;
-    }
+        .navigationContainer_left_aTag__text>a:hover {
+            font-size: 16px;
+        }
 
-    .navigationContainer_left {
-      display: flex;
-      align-items: flex-end;
-    }
+        .navigationContainer_left {
+            display: flex;
+            align-items: flex-end;
+        }
 
-    .navigationContainer_left_aTag {
-      display: flex;
-    }
+        .navigationContainer_left_aTag {
+            display: flex;
+        }
 
-    .navigationContainer_right {}
+        .navigationContainer_right {}
 
-    .navigationContainer_right_logout {
-      display: flex;
-      align-items: flex-end;
-      cursor: pointer;
-    }
+        .navigationContainer_right_logout {
+            display: flex;
+            align-items: flex-end;
+            cursor: pointer;
+        }
 
         .document__body {
             display: flex;
@@ -232,14 +232,14 @@
             background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 250.75), rgba(0, 0, 0, 0));
         }
 
-	a {
-		text-decoration: none;
-	}
+        a {
+            text-decoration: none;
+        }
 
         /* to here, navigation bar css */
-        
+
         #current_page {
-        color:#74b9ff;
+            color: #74b9ff;
         }
     </style>
 </head>
@@ -291,6 +291,9 @@
                     <div onclick="clickNavigation(726)" class="document__body__left__navigation_box__item">
                         Perspective Transform
                     </div>
+                    <div onclick="clickNavigation(1260)" class="document__body__left__navigation_box__item">
+                        Colorize Images
+                    </div>
                 </div>
             </div>
             <div class="document__body__right">
@@ -312,7 +315,7 @@
                     Perspective Transform
                 </div>
                 <div class="document__body__right__normal_text">
-                    First, click the "upload image button" then select some image you want to cut
+                    First, click the "upload image button" then select a image you want to cut
                     <br><br>
                     Second, Point 4 points that you want to cut from the image. Note that you have to point in a
                     clockwise direction from the top left corner
@@ -324,6 +327,18 @@
                 </div>
                 <div class="division_line_container">
                     <div class="division_line_container_item"></div>
+                </div>
+                <div class="document__body__right__title_text">
+                    Colorize Images
+                </div>
+                <div class="document__body__right__normal_text">
+                    Click the "upload image button" then select a black & white image you want to convert to the color
+                    image
+                    <br><br>
+                    Select mode. There are two modes. One is 'Dynamic' mode and the other is 'Stable' mode. The
+                    'Dynamic' mode will give you more color full image but there will be more burden in server.
+                    On the other hand, the 'Stable' mode will give you less colorful image than 'Dynamic mode' but,
+                    literally it is very 'stable' mode for image transform server
                 </div>
             </div>
         </div>
