@@ -660,11 +660,12 @@
     </div>
     <div class="perspectiveTransform__container__body">
       <div class="perspectiveTransform__container__body__file_input_container">
-        <form enctype="multipart/form-data" action="http://localhost:8080/WebProject/routes/perspectiveTransform2.jsp"
+        <form enctype="multipart/form-data" action="/WebProject/routes/perspectiveTransform2.jsp"
           onsubmit="return onclickSubmit()" class="form" method="POST">
 
           <input type="file" name="image" class="perspectiveTransform__container__body__file_input"
-            onchange="previewFile()" />
+            onchange="previewFile()"
+            accept="image/*" />
 
           <div class="perspectiveTransform__container__body__file_input_container_text_button">
             Click here to upload image!

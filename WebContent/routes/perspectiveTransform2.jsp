@@ -283,6 +283,7 @@
         }
 
         /* Style for loading component */
+        
 
         .invisiable {
             display: none;
@@ -296,7 +297,7 @@
 
 <script>
     $(document).ready(function () {
-        setTimeout(() => {
+        setTimeout(function() {
             $("#loading__container").css('display', 'none');
             $("#perspectiveTransform2__body").css('display', 'flex');
             $("#perspectiveTransform2__button").css('display', 'flex')
@@ -356,7 +357,7 @@ private static class IPC{
 %>
     <%
 	 boolean loading = true;
-	String dstIP = "192.168.0.169";
+	String dstIP = "172.20.10.2";
 	int dstPort = 9766;
 	String Extension = "";
 	String FileName = "";
