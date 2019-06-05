@@ -168,7 +168,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding-top: 50px;
+      padding-top: 100px;
       padding-bottom: 150px;
     }
 
@@ -184,10 +184,10 @@
     }
 
     .perspectiveTransform__container__body__img {
-      -webkit-box-shadow: 10px 10px 32px 0px rgba(0, 0, 0, 0.75);
-      -moz-box-shadow: 10px 10px 32px 0px rgba(0, 0, 0, 0.75);
-      box-shadow: 10px 10px 32px 0px rgba(0, 0, 0, 0.75);
-      max-width: 1200px;
+      -webkit-box-shadow: 10px 10px 24px 3px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 24px 3px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 24px 3px rgba(0,0,0,0.75);
+      max-width: 1000px;
       /* z-index: 3; */
     }
 
@@ -196,6 +196,9 @@
       overflow-x: auto;
       text-align: center;
       max-width: 100%;
+      -webkit-box-shadow: 10px 10px 24px 3px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 24px 3px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 24px 3px rgba(0,0,0,0.75);
       /* z-index: 4; */
     }
 
