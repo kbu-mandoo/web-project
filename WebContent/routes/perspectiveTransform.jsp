@@ -340,13 +340,6 @@
 
   var imageWidthFromBase64 = null;
 
-  $(document).ready(function () {
-    setTimeout(function(){
-      $("#loading__container").addClass('invisiable')
-      $("#loading__container").css('display', 'none')
-      $("#perspectiveTransform__container").removeClass('invisiable')
-    }, 2800);
-  })
 
   function previewFile() {
     var preview = document.querySelector("img"); // img 태그를 선택한다.
@@ -623,12 +616,7 @@
 </script>
 
 <body>
-  <div id="loading__container" class="loading__container">
-    <div class="loading">
-      <span>Loading...</span>
-    </div>
-  </div>
-  <div id="perspectiveTransform__container" class="perspectiveTransform__container invisiable">
+  <div id="perspectiveTransform__container" class="perspectiveTransform__container">
     <div class="navigationContainer">
       <div class="navigationContainer_left">
         <div class="navigationContainer_left_logoOrName">
