@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>colorize page</title>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="./index.js"></script>
 </head>
@@ -104,63 +105,59 @@
     }
 
     /* from here */
-
     .navigationContainer {
-        display: flex;
-        justify-content: space-between;
-        padding: 15px;
-        padding-left: 50px;
-        padding-right: 30px;
-        align-items: center;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px;
+      padding-left: 50px;
+      padding-right: 30px;
+      align-items: flex-end;
     }
 
     .navigationContainer_left_logoOrName {
-        margin-right: 50px;
-        font-weight: 900;
-        font-size: 25px;
-        cursor: pointer;
+      margin-right: 50px;
+      font-weight: 900;
+      font-size: 25px;
+      cursor: pointer;
+    }
+    
+    .navigationContainer_left_logoOrName > a {
+    font-weight: 900;
+      font-size: 25px;
+      cursor: pointer;
     }
 
     .navigationContainer_left_aTag__text {
-        margin-right: 20px;
-        cursor: pointer;
-        font-size: 14px;
-        width: 170px;
-        height: 27px;
-        display: flex;
-        align-items: flex-end;
-        transition: 0.2s ease-in-out;
+      margin-right: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      width: 170px;
+      height: 27px;
+      display: flex;
+      align-items: flex-end;
+      transition: 0.2s ease-in-out;
     }
 
     .navigationContainer_left_aTag__text:hover {
-        font-size: 16px;
+      font-size: 16px;
     }
 
     .navigationContainer_left {
-        display: flex;
-        align-items: flex-end;
+      display: flex;
+      align-items: flex-end;
     }
 
     .navigationContainer_left_aTag {
-        display: flex;
+      display: flex;
     }
 
     .navigationContainer_right {}
 
     .navigationContainer_right_logout {
-        display: flex;
-        align-items: flex-end;
-        cursor: pointer;
+      display: flex;
+      align-items: flex-end;
+      cursor: pointer;
     }
-
-    .navigationContainer_right_logout>i {
-        color: white;
-        font-size: 30px;
-    }
-
-
-
-
 
     /* to here, navigation bar css */
 
@@ -185,12 +182,18 @@
 
     .colorize__image_uploader>input {
         opacity: 0;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin-left: -100px;
-        margin-top: -10px;
-        cursor: pointer;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -120px;
+    margin-top: 50px;
+    cursor: pointer;
+    }
+    
+    .colorize__image_uploader > div {
+    font-size:16px;
+    margin-top:120px;
+    font-weight: 400px;
     }
 
     .colorize__image_container {
@@ -236,18 +239,92 @@
     .invisible {
         opacity: 0;
     }
+
+    .colorize__radio_buttons_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        margin-top: 60px;
+    }
+
+    .colorize__radio_buttons_container__input {
+        display: flex;
+        position: absolute;
+        width: 250px;
+        justify-content: space-between;
+        opacity: 0;
+    }
+
+    .colorize__radio_buttons_container__input>input:first-child {
+        width: 100px;
+        cursor: pointer;
+    }
+
+    .colorize__radio_buttons_container__input>input:nth-child(2) {
+        width: 80px;
+        cursor: pointer;
+    }
+
+    .colorize_radio_buttons_container_text {
+        display: flex;
+        width: 250px;
+        justify-content: space-between;
+    }
+
+    .checked {
+        font-weight: 900;
+        color: #74b9ff;
+    }
+    
+    #current_page {
+    color:#74b9ff;
+    }
+    
+    a {
+      color: white;
+      text-decoration: none;
+    }
 </style>
 
 <body>
     <script>
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
         function previewFile() {
             var preview = document.querySelector('img'); // selectes the query named img
             var file = document.querySelector('input[type=file]').files[0]; // sames as here
             var reader = new FileReader();
-
+            var stop = false;
             reader.onloadend = function () {
-                preview.src = reader.result; // base64
-            }
+                var imagestring = reader.result;
+                var extension = imagestring.substring(imagestring.indexOf('/') + 1, imagestring.indexOf(
+                    ';'));
+                var base64str = reader.result.substr(19 + extension.length);
+                var decoded = atob(base64str);
+                var filesize = decoded.length;
+
+                if (filesize > 12582912) {
+                    stop = true
+
+                    alert("You can't upload image size over than 12MB")
+
+                }
+
+                if (!stop) {
+                    $(".colorize__button_container").attr('class', 'colorize__button_container');
+                    $("#colorize__image_uploader").css('display', 'none');
+                    $(".colorize__radio_buttons_container").attr('class', 'colorize__radio_buttons_container');
+                    preview.src = reader.result; // base64
+                }
+
+
+
+
+            };
 
             if (file) {
                 reader.readAsDataURL(file);
@@ -255,44 +332,86 @@
                 preview.src = "";
             }
 
-            $(".colorize__button_container").attr('class', 'colorize__button_container');
-            $("#colorize__image_uploader").css('display', 'none');
 
+
+        }
+
+        function clickRadioButton() {
+            // When req1 is checked
+            if (document.getElementById('req1').checked) {
+                console.log('req1 checked')
+                $("#stable").attr('class', '')
+                $("#dynamic").attr('class', 'checked')
+            }
+            // When req2 is checked
+            if (document.getElementById('req2').checked) {
+                console.log('req2 checked')
+                $("#dynamic").attr("class", '')
+                $("#stable").attr('class', 'checked')
+            }
+        }
+
+        function clickNEXTbutton() {
+            console.log(!document.getElementById('req1').checked && !document.getElementById('req2').checked)
+
+            if (!document.getElementById('req1').checked && !document.getElementById('req2').checked) {
+                alert('You should select one of the modes')
+                return false;
+            }
+
+            return false;
         }
     </script>
     <div class="colorize">
         <div class="navigationContainer">
-            <div class="navigationContainer_left">
-                <div class="navigationContainer_left_logoOrName">
-                    MAN DOO
-                </div>
-                <div class="navigationContainer_left_aTag">
-                    <div class="navigationContainer_left_aTag__text">
-                        perspective transform
-                    </div>
-                    <div class="navigationContainer_left_aTag__text">
-                        colorize images
-                    </div>
-                    <div class="navigationContainer_left_aTag__text">
-                        DOC
-                    </div>
-                </div>
-            </div>
-            <div class="navigationContainer_right">
-                <div class="navigationContainer_right_logout">
-                    logout
-                </div>
-            </div>
+      <div class="navigationContainer_left">
+        <div class="navigationContainer_left_logoOrName">
+          <a href="/WebProject/index.jsp">MAN DOO</a>
         </div>
-        <form action="/WebProject/routes/colorizeImages2.jsp" method="post">
+        <div class="navigationContainer_left_aTag">
+          <div class="navigationContainer_left_aTag__text">
+            <a href="/WebProject/index.jsp?route=perspectiveTransform">
+              perspective transform
+            </a>
+          </div>
+          <div class="navigationContainer_left_aTag__text">
+            <a id="current_page" href="/WebProject/index.jsp?route=colorizeImages">
+              colorize images
+            </a>
+          </div>
+          <div class="navigationContainer_left_aTag__text">
+            <a href="/WebProject/index.jsp?route=document">
+              DOC
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="navigationContainer_right">
+        <div class="navigationContainer_right_logout">
+          LOGOUT
+        </div>
+      </div>
+    </div>
+        <form onsubmit="return clickNEXTbutton()" action="/WebProject/routes/colorizeImages2.jsp"
+            enctype="multipart/form-data" method="post">
             <div id="colorize__image_uploader" class="colorize__image_uploader">
                 <input onchange="previewFile()" type="file" accept="image/*">
                 <div>
-                    Click here to upload image
+                    Click here to upload image!
                 </div>
             </div>
             <div class="colorize__image_container">
                 <img src="" alt="">
+            </div>
+            <div class="colorize__radio_buttons_container invisible">
+                <div id="colorize__radio_buttons_container__input" class="colorize__radio_buttons_container__input">
+                    <input onclick="clickRadioButton()" id="req1" type="radio" value="0" name="req">
+                    <input onclick="clickRadioButton()" id="req2" type="radio" value="1" name="req">
+                </div>
+                <div class="colorize_radio_buttons_container_text">
+                    <div id="dynamic">Dynamic Mode</div>
+                    <div id="stable">Stable Mode</div>
+                </div>
             </div>
             <div class="colorize__button_container invisible">
                 <button>NEXT</button>

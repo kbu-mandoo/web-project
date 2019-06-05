@@ -310,6 +310,10 @@
     }
 
     /* loading component style to here */
+    
+    #current_page {
+    	color:#74b9ff;
+    }
   </style>
 </head>
 
@@ -624,7 +628,7 @@
         </div>
         <div class="navigationContainer_left_aTag">
           <div class="navigationContainer_left_aTag__text">
-            <a href="/WebProject/index.jsp?route=perspectiveTransform">
+            <a id="current_page" href="/WebProject/index.jsp?route=perspectiveTransform">
               perspective transform
             </a>
           </div>
