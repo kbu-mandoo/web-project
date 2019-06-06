@@ -413,7 +413,7 @@
     <form class="form" onsubmit="return clickNEXTbutton()" action="/WebProject/routes/colorizeImages2.jsp"
       enctype="multipart/form-data" method="post">
       <div id="colorize__image_uploader" class="colorize__image_uploader">
-        <input onchange="previewFile()" type="file" accept="image/*">
+        <input name="image" onchange="previewFile()" type="file" accept="image/*">
         <div>
           Click here to upload image!
         </div>

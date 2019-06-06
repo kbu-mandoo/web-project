@@ -408,7 +408,6 @@ private static class IPC{
 					// Get the uploaded file parameters
 					String fieldName = fi.getFieldName();
 					String fileName = fi.getName();
-					System.out.println("fileName: " + fileName);
 					// First, find index of '.'
 					int indexOfDot = fileName.indexOf(".");
 					// Get string before '.'(filename)

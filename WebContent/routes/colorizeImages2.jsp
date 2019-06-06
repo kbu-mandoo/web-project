@@ -99,7 +99,6 @@ if((contentType.indexOf("multipart/form-data") >= 0)) {
 				// Get the uploaded file parameters
 				String fieldName = fi.getFieldName();
 				String fileName = fi.getName();
-				System.out.println("fileName: " + fileName);
 				// First, find index of '.'
 				int indexOfDot = fileName.indexOf(".");
 				// Get string before '.'
@@ -128,6 +127,7 @@ if((contentType.indexOf("multipart/form-data") >= 0)) {
 	}
 }	
 	json.put("req", "colorize");
+	
 
 	String resultImageBase64OrErrorMessage = "";
 	resultImageBase64OrErrorMessage = IPC.interact(json.toString(),dstIP, dstPort, 10000);
