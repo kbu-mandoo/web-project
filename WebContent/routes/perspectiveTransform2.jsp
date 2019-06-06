@@ -357,7 +357,7 @@ private static class IPC{
 %>
     <%
 	 boolean loading = true;
-	String dstIP = "172.20.10.2";
+	String dstIP = "192.168.0.56";
 	int dstPort = 9766;
 	String Extension = "";
 	String FileName = "";

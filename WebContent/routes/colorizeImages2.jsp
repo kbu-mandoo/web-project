@@ -61,7 +61,7 @@ private static class IPC{
 }
 %>
 <%
-	String dstIP = "172.20.10.2";
+	String dstIP = "192.168.0.56";
 int dstPort = 9766;
 String Extension = "";
 String FileName = "";
@@ -103,6 +103,8 @@ if((contentType.indexOf("multipart/form-data") >= 0)) {
 				// First, find index of '.'
 				int indexOfDot = fileName.indexOf(".");
 				// Get string before '.'
+				FileName = fileName.substring(0, indexOfDot);
+				// Get string after '.'
 				Extension = fileName.substring(indexOfDot + 1);
 				boolean isInMemory = fi.isInMemory();
 				long sizeInBytes = fi.getSize();
