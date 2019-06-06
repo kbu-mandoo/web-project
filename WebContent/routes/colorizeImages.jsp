@@ -221,11 +221,8 @@
     display: none;
     justify-content: center;
     align-items: center;
-    margin-top: 100px;
     margin-bottom: 200px;
     transition: 2s;
-
-
   }
 
   .colorize__button_container>button {
@@ -253,6 +250,7 @@
     justify-content: center;
     position: relative;
     margin-top: 60px;
+    margin-bottom: 100px;
 
   }
 
@@ -320,8 +318,7 @@
         }
 
         if (!stop) {
-          $(".colorize__button_container").attr('class', 'colorize__button_container');
-          $(".colorize__button_container").css('display', 'flex');
+
           $("#colorize__image_uploader").css('display', 'none');
           $(".colorize__radio_buttons_container").attr('class', 'colorize__radio_buttons_container');
           preview.src = reader.result; // base64
@@ -348,6 +345,8 @@
       if (document.getElementById('req1').checked) {
         $("#stable").attr('class', '')
         $("#dynamic").attr('class', 'checked')
+        $(".colorize__button_container").attr('class', 'colorize__button_container');
+        $(".colorize__button_container").css('display', 'flex');
         reqvaluefromclient = document.getElementById('req1').value;
       }
       // When req2 is checked
@@ -355,6 +354,8 @@
         console.log('req2 checked')
         $("#dynamic").attr("class", '')
         $("#stable").attr('class', 'checked')
+        $(".colorize__button_container").attr('class', 'colorize__button_container');
+        $(".colorize__button_container").css('display', 'flex');
         reqvaluefromclient = document.getElementById('req2').value;
       }
     }
@@ -371,8 +372,8 @@
       // 1. req
       // 2. image base64 string
 
-      $(".form").append(`<input type="hidden" name="req" value=`+reqvaluefromclient+` />` +
-        `<input type="hidden" name="img" value=`+base64fromclient+` />`
+      $(".form").append(`<input type="hidden" name="net" value=` + reqvaluefromclient + ` />` +
+        `<input type="hidden" name="img" value=` + base64fromclient + ` />`
       )
 
 

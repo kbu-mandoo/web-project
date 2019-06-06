@@ -68,6 +68,7 @@ String FileName = "";
 String base64 = "";
 String stringBase64 = "";
 JSONObject json = new JSONObject();
+json.put("req", "colorize");
 
 /* Get File from previous page  */
 File file;
@@ -123,127 +124,127 @@ if((contentType.indexOf("multipart/form-data") >= 0)) {
 	}catch(Exception ex) {
 		System.out.println(ex);
 	}
-}
-	System.out.println(json);
+}	
+	json.put("req", "colorize");
 
 	String resultImageBase64OrErrorMessage = "";
-	// resultImageBase64OrErrorMessage = IPC.interact(json.toString(),dstIP, dstPort, 10000);
+	resultImageBase64OrErrorMessage = IPC.interact(json.toString(),dstIP, dstPort, 10000);
 %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="./index.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <title>Document</title>
-    <style>
-        html,
-        body,
-        div,
-        span,
-        applet,
-        object,
-        iframe,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p,
-        blockquote,
-        pre,
-        a,
-        abbr,
-        acronym,
-        address,
-        big,
-        cite,
-        code,
-        del,
-        dfn,
-        em,
-        img,
-        ins,
-        kbd,
-        q,
-        s,
-        samp,
-        small,
-        strike,
-        strong,
-        sub,
-        sup,
-        tt,
-        var,
-        b,
-        u,
-        i,
-        center,
-        dl,
-        dt,
-        dd,
-        ol,
-        ul,
-        li,
-        fieldset,
-        form,
-        label,
-        legend,
-        table,
-        caption,
-        tbody,
-        tfoot,
-        thead,
-        tr,
-        th,
-        td,
-        article,
-        aside,
-        canvas,
-        details,
-        embed,
-        figure,
-        figcaption,
-        footer,
-        header,
-        hgroup,
-        menu,
-        nav,
-        output,
-        ruby,
-        section,
-        summary,
-        time,
-        mark,
-        audio,
-        video {
-            margin: 0;
-            padding: 0;
-            border: 0;
-            font-size: 100%;
-            font: inherit;
-            vertical-align: baseline;
-            background-color: #2c3e50;
-            color: white;
-            font-size: 14px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="./index.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <title>Document</title>
+  <style>
+    html,
+    body,
+    div,
+    span,
+    applet,
+    object,
+    iframe,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    blockquote,
+    pre,
+    a,
+    abbr,
+    acronym,
+    address,
+    big,
+    cite,
+    code,
+    del,
+    dfn,
+    em,
+    img,
+    ins,
+    kbd,
+    q,
+    s,
+    samp,
+    small,
+    strike,
+    strong,
+    sub,
+    sup,
+    tt,
+    var,
+    b,
+    u,
+    i,
+    center,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul,
+    li,
+    fieldset,
+    form,
+    label,
+    legend,
+    table,
+    caption,
+    tbody,
+    tfoot,
+    thead,
+    tr,
+    th,
+    td,
+    article,
+    aside,
+    canvas,
+    details,
+    embed,
+    figure,
+    figcaption,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    output,
+    ruby,
+    section,
+    summary,
+    time,
+    mark,
+    audio,
+    video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline;
+      background-color: #2c3e50;
+      color: white;
+      font-size: 14px;
 
-        }
+    }
 
-        .colorize2 {
-            min-width: 100vw;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            font-family: "Nanum Gothic", sans-serif;
-            scroll-behavior: smooth;
-        }
+    .colorize2 {
+      min-width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: "Nanum Gothic", sans-serif;
+      scroll-behavior: smooth;
+    }
 
-        /* from here */
+    /* from here */
     .navigationContainer {
       display: flex;
       justify-content: space-between;
@@ -259,14 +260,14 @@ if((contentType.indexOf("multipart/form-data") >= 0)) {
       font-size: 25px;
       cursor: pointer;
     }
-    
-    .navigationContainer_left_logoOrName > a {
-    font-weight: 900;
+
+    .navigationContainer_left_logoOrName>a {
+      font-weight: 900;
       font-size: 25px;
       cursor: pointer;
     }
 
-    .navigationContainer_left_aTag__text > a {
+    .navigationContainer_left_aTag__text>a {
       margin-right: 20px;
       cursor: pointer;
       font-size: 14px;
@@ -277,7 +278,7 @@ if((contentType.indexOf("multipart/form-data") >= 0)) {
       transition: 0.2s ease-in-out;
     }
 
-    .navigationContainer_left_aTag__text > a:hover {
+    .navigationContainer_left_aTag__text>a:hover {
       font-size: 16px;
     }
 
@@ -297,8 +298,8 @@ if((contentType.indexOf("multipart/form-data") >= 0)) {
       align-items: flex-end;
       cursor: pointer;
     }
-    
-        a {
+
+    a {
       color: white;
       text-decoration: none;
     }
@@ -306,136 +307,136 @@ if((contentType.indexOf("multipart/form-data") >= 0)) {
     /* to here, navigation bar css */
 
 
-        .colorize2__image_container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 90px;
-        }
-
-        .colorize2__image_container>img {
-            max-width: 1200px;
-            -webkit-box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
-            -moz-box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
-            box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
-        }
-
-        .colorize2_button_container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 80px;
-            margin-bottom: 200px;
-
-        }
-
-        .colorize2_button_container>button {
-            width: 220px;
-            height: 70px;
-            background-color: white;
-            color: #3498db;
-            border-radius: 15px;
-            border: 0;
-            font-size: 30px;
-            -webkit-box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
-            -moz-box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
-            box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
-            cursor: pointer;
-        }
-
-        /* Style for loading component */
-
-        .loading__container {
-            background-color: #2c3e50;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: "montserrat", sans-serif;
-        }
-
-        .loading {
-            width: 200px;
-            height: 200px;
-            box-sizing: border-box;
-            border-radius: 50%;
-            border-top: 10px solid #e74c3c;
-            position: relative;
-            animation: a1 2s linear infinite;
-        }
-
-        .loading::before,
-        .loading::after {
-            content: '';
-            width: 200px;
-            height: 200px;
-            position: absolute;
-            left: 0;
-            top: -10px;
-            box-sizing: border-box;
-            border-radius: 50%;
-        }
-
-        .loading::before {
-            border-top: 10px solid #e67e22;
-            transform: rotate(120deg);
-        }
-
-        .loading::after {
-            border-top: 10px solid #3498db;
-            transform: rotate(240deg);
-        }
-
-        .loading span {
-            position: absolute;
-            width:200px;
-            height:200px;
-            color: #fff;
-            text-align: center;
-            line-height: 200px;
-            animation: a2 2s linear infinite;
-        }
-
-        @keyframes a1 {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes a2 {
-            to {
-                transform: rotate(-360deg);
-            }
-        }
-
-        /* Style for loading component */
-
-        .invisible {
-            display: none;
-        }
-        
-            #current_page {
-    color:#74b9ff;
+    .colorize2__image_container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 90px;
     }
-    </style>
+
+    .colorize2__image_container>img {
+      max-width: 1000px;
+      -webkit-box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
+      box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
+    }
+
+    .colorize2_button_container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 80px;
+      margin-bottom: 200px;
+
+    }
+
+    .colorize2_button_container>a>button {
+      width: 220px;
+      height: 70px;
+      background-color: white;
+      color: #3498db;
+      border-radius: 15px;
+      border: 0;
+      font-size: 30px;
+      -webkit-box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
+      box-shadow: 10px 10px 23px 0px rgba(0, 0, 0, 0.75);
+      cursor: pointer;
+    }
+
+    /* Style for loading component */
+
+    .loading__container {
+      background-color: #2c3e50;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "montserrat", sans-serif;
+    }
+
+    .loading {
+      width: 200px;
+      height: 200px;
+      box-sizing: border-box;
+      border-radius: 50%;
+      border-top: 10px solid #e74c3c;
+      position: relative;
+      animation: a1 2s linear infinite;
+    }
+
+    .loading::before,
+    .loading::after {
+      content: '';
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      left: 0;
+      top: -10px;
+      box-sizing: border-box;
+      border-radius: 50%;
+    }
+
+    .loading::before {
+      border-top: 10px solid #e67e22;
+      transform: rotate(120deg);
+    }
+
+    .loading::after {
+      border-top: 10px solid #3498db;
+      transform: rotate(240deg);
+    }
+
+    .loading span {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      color: #fff;
+      text-align: center;
+      line-height: 200px;
+      animation: a2 2s linear infinite;
+    }
+
+    @keyframes a1 {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes a2 {
+      to {
+        transform: rotate(-360deg);
+      }
+    }
+
+    /* Style for loading component */
+
+    .invisible {
+      display: none;
+    }
+
+    #current_page {
+      color: #74b9ff;
+    }
+  </style>
 </head>
 
 <body>
-    <script>
-        $(document).ready(function () {
-            setTimeout(() => {
-                $("#loading__container").attr('class', 'invisible');
-                $(".colorize2__image_container").attr('class', 'colorize2__image_container');
-                $(".colorize2_button_container").attr('class', 'colorize2_button_container');
-            }, 2800);
-        })
-    </script>
-    <div class="colorize2">
-         <div class="navigationContainer">
+  <script>
+    $(document).ready(function () {
+      setTimeout(() => {
+        $("#loading__container").attr('class', 'invisible');
+        $(".colorize2__image_container").attr('class', 'colorize2__image_container');
+        $(".colorize2_button_container").attr('class', 'colorize2_button_container');
+      }, 2800);
+    })
+  </script>
+  <div class="colorize2">
+    <div class="navigationContainer">
       <div class="navigationContainer_left">
         <div class="navigationContainer_left_logoOrName">
           <a href="/WebProject/index.jsp">MAN DOO</a>
@@ -464,18 +465,20 @@ if((contentType.indexOf("multipart/form-data") >= 0)) {
         </div>
       </div>
     </div>
-        <div id="loading__container" class="loading__container">
-            <div class="loading">
-                <span>Loading...</span>
-            </div>
-        </div>
-        <div class="colorize2__image_container invisible">
-            <img src="http://www.ricoh-imaging.co.jp/english/products/q-s1/ex/img/bod_mainImg_01.jpg" alt="">
-        </div>
-        <div class="colorize2_button_container invisible">
-            <button>DOWNLOAD</button>
-        </div>
+    <div id="loading__container" class="loading__container">
+      <div class="loading">
+        <span>Loading...</span>
+      </div>
     </div>
+    <div class="colorize2__image_container invisible">
+      <img src="<%=resultImageBase64OrErrorMessage %>" alt="">
+    </div>
+    <div class="colorize2_button_container invisible">
+    <a download="changed_<%=FileName%>.<%=Extension%>" href="<%=resultImageBase64OrErrorMessage%>">
+    	<button>DOWNLOAD</button>
+    </a>
+    </div>
+  </div>
 </body>
 
 </html>

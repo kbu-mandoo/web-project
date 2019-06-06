@@ -592,8 +592,8 @@ box-shadow: 10px 10px 24px 3px rgba(0,0,0,0.75);
       return false;
     }
 
-    if (imageWidthFromBase64 > 1200) {
-      var proportionToMultiply = imageWidthFromBase64 / 1200;
+    if (imageWidthFromBase64 > 1000) {
+      var proportionToMultiply = imageWidthFromBase64 / 1000;
       point1.x = parseInt(point1.x * proportionToMultiply);
       point1.y = parseInt(point1.y * proportionToMultiply);
       point2.x = parseInt(point2.x * proportionToMultiply);
