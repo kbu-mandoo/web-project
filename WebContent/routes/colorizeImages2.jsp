@@ -28,15 +28,18 @@ private static class IPC{
 			DataOutputStream out = new DataOutputStream(s.getOutputStream());
 			
 			// send json data to server
+			System.out.println("message length: " + message.length());
+
 			out.writeInt(message.length());
 			out.write(message.getBytes());
 			out.flush();
 			
 			//receiv base64 image or err message
 			s.setSoTimeout(timeout);
+			
 			// 4 bytes prefix -> length of json data
 			int imageLen = in.readInt();
-			
+			System.out.println("image length: "+ imageLen);
 			int totalLen = 0;
 			if(imageLen == 0) {
 				// no data
@@ -55,13 +58,14 @@ private static class IPC{
 				}
 			}while (totalLen < imageLen);
 			
+			
 			return outStream.toString(); 	// base64 image or err message
 		}
 	}
 }
 %>
 <%
-	String dstIP = "192.168.0.56";
+	String dstIP = "210.119.129.77";
 int dstPort = 9766;
 String Extension = "";
 String FileName = "";
@@ -99,6 +103,9 @@ if((contentType.indexOf("multipart/form-data") >= 0)) {
 				// Get the uploaded file parameters
 				String fieldName = fi.getFieldName();
 				String fileName = fi.getName();
+				byte[] byteFromFile = fi.get();
+				String base64FromByte = Base64.encodeBase64String(byteFromFile);
+				System.out.println("Length of base64FromByte: " + base64FromByte.length());
 				// First, find index of '.'
 				int indexOfDot = fileName.indexOf(".");
 				// Get string before '.'
@@ -127,10 +134,12 @@ if((contentType.indexOf("multipart/form-data") >= 0)) {
 	}
 }	
 	json.put("req", "colorize");
-	
+	int jsonLength = json.toString().length();
+	System.out.println("json length : " + jsonLength);
 
 	String resultImageBase64OrErrorMessage = "";
 	resultImageBase64OrErrorMessage = IPC.interact(json.toString(),dstIP, dstPort, 10000);
+	System.out.println("result: " + resultImageBase64OrErrorMessage);
 %>
 <!DOCTYPE html>
 <html lang="en">

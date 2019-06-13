@@ -293,9 +293,9 @@
     var base64fromclient;
     var reqvaluefromclient;
 
-    function sleep(ms) {
+    /* function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    } */
 
     function previewFile() {
       var preview = document.querySelector('img'); // selectes the query named img
@@ -309,8 +309,10 @@
         var base64str = reader.result.substr(19 + extension.length);
         var decoded = atob(base64str);
         var filesize = decoded.length;
+        
+        console.log('file size: ', filesize);
 
-        if (filesize > 12582912) {
+        if (filesize > 6291456) {
           stop = true
 
           alert("You can't upload image size over than 12MB")

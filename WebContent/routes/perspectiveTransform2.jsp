@@ -357,7 +357,7 @@ private static class IPC{
 %>
     <%
 	 boolean loading = true;
-	String dstIP = "192.168.0.56";
+	String dstIP = "210.119.129.77";
 	int dstPort = 9766;
 	String Extension = "";
 	String FileName = "";
@@ -404,10 +404,15 @@ private static class IPC{
 			
 			while (i.hasNext()) {
 				FileItem fi = (FileItem)i.next();
+				System.out.println("hihihihi");
 				if(!fi.isFormField()) {
 					// Get the uploaded file parameters
 					String fieldName = fi.getFieldName();
 					String fileName = fi.getName();
+					System.out.println("here!!!");
+					byte[] byteFromFile = fi.get();
+					String base64FromByte = Base64.encodeBase64String(byteFromFile);
+					System.out.println("Length of base64FromByte: " + base64FromByte.length());
 					// First, find index of '.'
 					int indexOfDot = fileName.indexOf(".");
 					// Get string before '.'(filename)
