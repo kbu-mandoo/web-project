@@ -612,8 +612,7 @@ box-shadow: 10px 10px 24px 3px rgba(0,0,0,0.75);
       `<input type="hidden" name="cdn_x3" value=` + point3.x + ` />` +
       `<input type="hidden" name="cdn_y3" value=` + point3.y + ` />` +
       `<input type="hidden" name="cdn_x4" value=` + point4.x + ` />` +
-      `<input type="hidden" name="cdn_y4" value=` + point4.y + ` />` +
-      `<input type="hidden" name="img" value=` + base64 + ` />`);
+      `<input type="hidden" name="cdn_y4" value=` + point4.y + ` />`);
     /* +`<input type="hidden" name="base64" value=`+base64+` />`); */
 
 

@@ -356,6 +356,7 @@ private static class IPC{
 	}
 %>
     <%
+    String base64FromByte = "";
 	 boolean loading = true;
 	String dstIP = "210.119.129.77";
 	int dstPort = 9766;
@@ -404,21 +405,21 @@ private static class IPC{
 			
 			while (i.hasNext()) {
 				FileItem fi = (FileItem)i.next();
-				System.out.println("hihihihi");
+				
 				if(!fi.isFormField()) {
 					// Get the uploaded file parameters
 					String fieldName = fi.getFieldName();
 					String fileName = fi.getName();
-					System.out.println("here!!!");
-					byte[] byteFromFile = fi.get();
-					String base64FromByte = Base64.encodeBase64String(byteFromFile);
-					System.out.println("Length of base64FromByte: " + base64FromByte.length());
 					// First, find index of '.'
 					int indexOfDot = fileName.indexOf(".");
 					// Get string before '.'(filename)
 					FileName = fileName.substring(0, indexOfDot);
 					// Get string after '.'
 					Extension = fileName.substring(indexOfDot+ 1);
+					byte[] byteFromFile = fi.get();
+					base64FromByte = Base64.encodeBase64String(byteFromFile);
+					base64FromByte = "data:image/" + Extension + ";base64," + base64FromByte;
+					json.put("img", base64FromByte);
 					boolean isInMemory = fi.isInMemory();
 					long sizeInBytes = fi.getSize();
 
@@ -516,7 +517,7 @@ private static class IPC{
 
         <div id="perspectiveTransform2__body" class="perspectiveTransform2__body invisiable">
             <div class="perspectiveTransform2__body_left">
-                <img src="<%=base64%>" alt="">
+                <img src="<%=base64FromByte%>" alt="">
             </div>
             <div class="perspectiveTransform2__body_left">
                 <img src="<%=resultImageBase64OrErrorMessage%>" alt="">

@@ -103,15 +103,17 @@ if((contentType.indexOf("multipart/form-data") >= 0)) {
 				// Get the uploaded file parameters
 				String fieldName = fi.getFieldName();
 				String fileName = fi.getName();
-				byte[] byteFromFile = fi.get();
-				String base64FromByte = Base64.encodeBase64String(byteFromFile);
-				System.out.println("Length of base64FromByte: " + base64FromByte.length());
 				// First, find index of '.'
 				int indexOfDot = fileName.indexOf(".");
 				// Get string before '.'
 				FileName = fileName.substring(0, indexOfDot);
 				// Get string after '.'
 				Extension = fileName.substring(indexOfDot + 1);
+				byte[] byteFromFile = fi.get();
+				String base64FromByte = Base64.encodeBase64String(byteFromFile);
+				base64FromByte = "data:image/" + Extension + ";base64," + base64FromByte;
+				json.put("img", base64FromByte);
+				
 				boolean isInMemory = fi.isInMemory();
 				long sizeInBytes = fi.getSize();
 			}
@@ -139,7 +141,7 @@ if((contentType.indexOf("multipart/form-data") >= 0)) {
 
 	String resultImageBase64OrErrorMessage = "";
 	resultImageBase64OrErrorMessage = IPC.interact(json.toString(),dstIP, dstPort, 10000);
-	System.out.println("result: " + resultImageBase64OrErrorMessage);
+
 %>
 <!DOCTYPE html>
 <html lang="en">

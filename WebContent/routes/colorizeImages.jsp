@@ -374,8 +374,7 @@
       // 1. req
       // 2. image base64 string
 
-      $(".form").append(`<input type="hidden" name="net" value=` + reqvaluefromclient + ` />` +
-        `<input type="hidden" name="img" value=` + base64fromclient + ` />`
+      $(".form").append(`<input type="hidden" name="net" value=` + reqvaluefromclient + ` />`
       )
 
 
